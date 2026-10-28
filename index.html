@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Санёк, это тебе</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a1226;
+    --bg2: #12204a;
+    --orange: #f7931a;
+    --cyan: #38d6ff;
+    --light: #e8eefc;
+    --paper: #eef3ff;
+    --ink: #0a1226;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Rubik", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--light);
+    line-height: 1.65;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1.25rem;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 80% 15%, rgba(56,214,255,.18), transparent 45%),
+      radial-gradient(circle at 15% 85%, rgba(247,147,26,.18), transparent 45%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .hero > * { position: relative; }
+
+  .coin {
+    width: clamp(90px, 22vw, 140px);
+    height: clamp(90px, 22vw, 140px);
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffc36b, var(--orange) 55%, #b86a05);
+    color: #fff;
+    font: 800 clamp(3rem, 11vw, 5rem) "Unbounded", sans-serif;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 0 60px rgba(247,147,26,.5);
+    margin-bottom: 1.5rem;
+    animation: spin 5s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+  }
+
+  .hero h1 {
+    font-family: "Unbounded", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 15vw, 9rem);
+    line-height: 1.05;
+    color: #fff;
+  }
+  .hero p.sub {
+    margin-top: 1.25rem;
+    font-size: clamp(1.05rem, 3.4vw, 1.4rem);
+    max-width: 28ch;
+  }
+  .hint {
+    position: absolute !important;
+    bottom: 1.5rem;
+    left: 0; right: 0;
+    font-size: .9rem;
+    color: var(--cyan);
+  }
+
+  /* CONTENT */
+  main { background: var(--paper); color: var(--ink); }
+  section { max-width: 44rem; margin: 0 auto; padding: 4.5rem 1.5rem; }
+  h2 {
+    font-family: "Unbounded", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 5.5vw, 2.2rem);
+    line-height: 1.25;
+    margin-bottom: 1.25rem;
+    color: var(--bg2);
+  }
+  section p { font-size: 1.1rem; max-width: 60ch; }
+  section p + p { margin-top: 1rem; }
+
+  .list { list-style: none; padding: 0; margin-top: 1rem; }
+  .list li {
+    padding: 1rem 1rem 1rem 1.25rem;
+    border-left: 4px solid var(--orange);
+    margin-bottom: .75rem;
+    background: #fff;
+  }
+  .list li b { color: var(--bg2); }
+
+  .sign {
+    margin-top: 2.5rem;
+    font-family: "Unbounded", sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--orange);
+  }
+
+  /* САЛЮТ */
+  .finale {
+    position: relative;
+    height: 100vh;
+    height: 100svh;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .finale canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .finale button {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    transform: translateX(-50%);
+    font: 500 1rem "Rubik", system-ui, sans-serif;
+    background: var(--orange);
+    color: var(--ink);
+    border: 0;
+    border-radius: 999px;
+    padding: .85rem 1.75rem;
+    cursor: pointer;
+  }
+  .finale button:hover { background: #ffa73d; }
+  .finale button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+  footer {
+    background: var(--bg);
+    text-align: center;
+    padding: 2rem 1rem 3rem;
+    color: var(--cyan);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .coin { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="coin" aria-hidden="true">₿</div>
+  <h1>Санёк</h1>
+  <p class="sub">Кент, с которым всегда есть о чём поговорить</p>
+  <p class="hint">листай вниз</p>
+</header>
+
+<main>
+  <section>
+    <h2>Эта страница для тебя</h2>
+    <p>Санёк, это маленький подарок от меня. С тобой всегда легко общаться, и я это ценю.</p>
+    <p>Замени этот текст на свои слова: что хочешь сказать, какую историю вспомнить, какую шутку вставить.</p>
+  </section>
+
+  <section style="padding-top:0">
+    <h2>За что тебя уважают</h2>
+    <ul class="list">
+      <li><b>Всегда на связи.</b> Пишешь, отвечаешь, объясняешь нормально.</li>
+      <li><b>Честные условия.</b> С тобой удобно и приятно иметь дело.</li>
+      <li><b>Свой человек.</b> Такого кента ещё поискать.</li>
+    </ul>
+    <p class="sign">От Saidbid</p>
+  </section>
+</main>
+
+<div class="finale" id="finale">
+  <canvas id="fw" aria-label="Салют с надписью Санёк"></canvas>
+  <button id="again" type="button">Запустить ещё раз</button>
+</div>
+
+<footer>Санёк, спасибо тебе!</footer>
+
+<script>
+  // ===== САЛЮТ =====
+  (function () {
+    const WORD = "Санёк";          // надпись в салюте
+    const BG = "10,18,38";         // цвет фона (тот же, что --bg)
+
+    const cv = document.getElementById("fw");
+    const ctx = cv.getContext("2d");
+    const finale = document.getElementById("finale");
+    let w = 0, h = 0;
+
+    function resize() {
+      const dpr = window.devicePixelRatio || 1;
+      w = cv.clientWidth;
+      h = cv.clientHeight;
+      cv.width = w * dpr;
+      cv.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.fillStyle = "rgb(" + BG + ")";
+      ctx.fillRect(0, 0, w, h);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    const rockets = [];
+    const parts = [];
+    const HUES = [35, 190, 200, 28, 45, 170, 270];
+
+    function launch(tx, ty, isText) {
+      const x = isText ? w / 2 : tx + (Math.random() - 0.5) * 80;
+      rockets.push({
+        x: x, y: h, tx: tx, ty: ty, isText: !!isText,
+        hue: HUES[Math.floor(Math.random() * HUES.length)],
+        speed: 9 + Math.random() * 2
+      });
+    }
+
+    function burst(x, y, hue) {
+      const n = 90;
+      for (let i = 0; i < n; i++) {
+        const a = Math.random() * Math.PI * 2;
+        const s = 1 + Math.random() * 4.5;
+        parts.push({
+          text: false, x: x, y: y,
+          vx: Math.cos(a) * s, vy: Math.sin(a) * s,
+          hue: hue + (Math.random() - 0.5) * 30,
+          age: 0, life: 60 + Math.random() * 40
+        });
+      }
+    }
+
+    function textBurst(cx, cy) {
+      const fs = Math.min(w * 0.2, 160);
+      const off = document.createElement("canvas");
+      const o = off.getContext("2d");
+      const font = "800 " + fs + "px Unbounded, Arial, sans-serif";
+      o.font = font;
+      const tw = Math.ceil(o.measureText(WORD).width) + 20;
+      off.width = tw;
+      off.height = Math.ceil(fs * 1.3);
+      o.font = font;
+      o.fillStyle = "#fff";
+      o.textBaseline = "middle";
+      o.fillText(WORD, 10, off.height / 2);
+      const data = o.getImageData(0, 0, off.width, off.height).data;
+      const step = Math.max(3, Math.round(fs / 32));
+      for (let y = 0; y < off.height; y += step) {
+        for (let x = 0; x < off.width; x += step) {
+          if (data[(y * off.width + x) * 4 + 3] > 128) {
+            parts.push({
+              text: true, x: cx, y: cy,
+              tx: cx - tw / 2 + x, ty: cy - off.height / 2 + y,
+              vx: (Math.random() - 0.5) * 2, vy: 0,
+              hue: 30 + Math.random() * 14,
+              age: 0, life: 230
+            });
+          }
+        }
+      }
+      burst(cx, cy, 35);
+    }
+
+    function update() {
+      for (let i = rockets.length - 1; i >= 0; i--) {
+        const r = rockets[i];
+        const dx = r.tx - r.x, dy = r.ty - r.y;
+        const d = Math.hypot(dx, dy);
+        if (d < r.speed) {
+          if (r.isText) textBurst(r.tx, r.ty); else burst(r.tx, r.ty, r.hue);
+          rockets.splice(i, 1);
+        } else {
+          r.x += dx / d * r.speed;
+          r.y += dy / d * r.speed;
+        }
+      }
+      for (let i = parts.length - 1; i >= 0; i--) {
+        const p = parts[i];
+        p.age++;
+        if (p.age > p.life) { parts.splice(i, 1); continue; }
+        if (p.text) {
+          if (p.age < 80) {
+            p.x += (p.tx - p.x) * 0.09;
+            p.y += (p.ty - p.y) * 0.09;
+            p.alpha = 1;
+          } else if (p.age < 170) {
+            p.x = p.tx; p.y = p.ty;
+            p.alpha = 0.85 + Math.random() * 0.15;
+          } else {
+            p.vy += 0.06;
+            p.y += p.vy;
+            p.x += p.vx * 0.2;
+            p.alpha = 1 - (p.age - 170) / 60;
+          }
+        } else {
+          p.x += p.vx; p.y += p.vy;
+          p.vx *= 0.985;
+          p.vy = p.vy * 0.985 + 0.05;
+          p.alpha = 1 - p.age / p.life;
+        }
+      }
+    }
+
+    function draw() {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = "rgba(" + BG + ",0.22)";
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalCompositeOperation = "lighter";
+      for (const r of rockets) {
+        ctx.fillStyle = "hsl(" + r.hue + ",100%,75%)";
+        ctx.fillRect(r.x - 1.5, r.y - 1.5, 3, 3);
+      }
+      for (const p of parts) {
+        const a = Math.max(0, p.alpha === undefined ? 1 : p.alpha);
+        ctx.fillStyle = "hsla(" + p.hue + ",100%," + (p.text ? 62 : 60) + "%," + a + ")";
+        const s = p.text ? 2.4 : 2;
+        ctx.fillRect(p.x - s / 2, p.y - s / 2, s, s);
+      }
+    }
+
+    let raf = 0, timer = 0, n = 0, running = false;
+
+    function frame() {
+      if (!running) return;
+      update();
+      draw();
+      raf = requestAnimationFrame(frame);
+    }
+
+    function randomRocket() {
+      launch(w * (0.15 + Math.random() * 0.7), h * (0.12 + Math.random() * 0.3), false);
+    }
+    function textRocket() {
+      launch(w / 2, h * 0.4, true);
+    }
+
+    function step() {
+      n++;
+      if (n % 9 === 3) textRocket();
+      else { randomRocket(); if (Math.random() < 0.5) randomRocket(); }
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      n = 0;
+      randomRocket();
+      randomRocket();
+      timer = setInterval(step, 1000);
+      raf = requestAnimationFrame(frame);
+    }
+    function stop() {
+      running = false;
+      clearInterval(timer);
+      cancelAnimationFrame(raf);
+    }
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!reduce && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        entries[0].isIntersecting ? start() : stop();
+      }, { threshold: 0.4 }).observe(finale);
+    }
+
+    document.getElementById("again").addEventListener("click", function () {
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(frame);
+        setTimeout(function () { if (!timer) stop(); }, 20000);
+      }
+      textRocket();
+    });
+  })();
+</script>
+</body>
+</html>
